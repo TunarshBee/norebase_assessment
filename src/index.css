@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  :root {
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+
+    background-color: #ebebeb;
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .tableContainer {
+    @apply flex flex-col p-2 items-center justify-center w-fit m-auto shadow-lg;
+  }
+
+  tr {
+    @apply grid grid-cols-2 space-y-2 lg:space-y-0 lg:grid-cols-4;
+  }
+
+  tr td {
+    @apply min-w-fit text-start px-2 py-1 text-sm;
+  }
+
+  tr td .mobileHeader {
+    @apply block lg:hidden text-sm font-bold;
+  }
+
+  .btnWrapper {
+    @apply border-2 border-transparent hover:border-[#ff0] px-1;
+  }
+
+  .paginationBtn {
+    @apply text-sm font-bold;
+  }
+}
