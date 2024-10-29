@@ -30,9 +30,9 @@ const Table: React.FC<ITableProps> = ({
             </tr>
           </thead>
           {isLoadingData ? (
-            <tbody>
+            <tbody className="min-w-fit">
               {loadingStateSkeletonRow.map((_item, index) => (
-                <tr key={index}>
+                <tr key={index} className="min-w-[250px]">
                   {header.map((_item, index) => (
                     <td key={index}>
                       <Skeleton height="20px" width="70%" />
