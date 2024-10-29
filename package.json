@@ -3,11 +3,52 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "jest-environment-jsdom",
+    "setupFilesAfterEnv": [
+      "<rootDir>/setup-test.ts"
+    ],
+    "moduleNameMapper": {
+      "react-loading-skeleton": "<rootDir>/__mocks__/react-loading-skeleton.tsx",
+      "\\.(css|less|scss|sass)$": "identity-obj-proxy",
+      "\\.(jpg|jpeg|png|gif|webp|svg)$": "<rootDir>/__mocks__/fileMock.js"
+    },
+    "globals": {
+      "ts-jest": {
+        "tsconfig": "<rootDir>/tsconfig.jest.json"
+      }
+    },
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!src/**/*.d.ts",
+      "!src/**/*.{spec,test}.{js,jsx,ts,tsx}",
+      "!**/node_modules/**",
+      "!**/vendor/**",
+      "!**/dist/**",
+      "!**/build/**",
+      "!vite.config.ts",
+      "!**/coverage/**"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "setup-tests.ts",
+      "vite-env.d.ts"
+    ],
+    "transformIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    }
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "jest",
+    "test:cov": "jest --coverage --watchAll"
   },
   "dependencies": {
     "@testing-library/jest-dom": "^6.6.2",
@@ -30,8 +71,10 @@
     "eslint-plugin-react-refresh": "^0.4.13",
     "globals": "^15.11.0",
     "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.14",
+    "ts-jest": "^29.2.5",
     "typescript": "~5.6.2",
     "typescript-eslint": "^8.10.0",
     "vite": "^5.4.9"
