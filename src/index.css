@@ -17,7 +17,7 @@
   }
 
   .tableContainer {
-    @apply flex flex-col p-2 items-center justify-center w-fit m-auto shadow-lg;
+    @apply flex flex-col items-center justify-center w-fit m-auto shadow-lg;
   }
 
   tr {
