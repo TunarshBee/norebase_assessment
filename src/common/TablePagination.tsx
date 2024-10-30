@@ -8,7 +8,7 @@ const TablePagination: React.FC<{
   return (
     <div
       data-testid="btnWrapper"
-      className="bg-white w-full flex justify-between items-center px-2 py-1"
+      className="bg-white w-full flex justify-between items-center px-2 gap-7 py-1"
     >
       <span className="btnWrapper">
         {currPage <= 1 ? (
