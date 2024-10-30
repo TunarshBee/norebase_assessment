@@ -29,14 +29,14 @@ const CoinRow: React.FC<{
     <>
       {data && (
         <tr
-          className={`font-semibold text-sm ${
+          className={`font-semibold text-sm min-w-fit ${
             +itemIdx % 2 === 0 ? "bg-[#ebebeb]" : "bg-white"
           }`}
         >
           {rowData.map(({ title, value }) => (
             <td key={title}>
               <h4 className="mobileHeader">{title}</h4>
-              <p>{value}</p>
+              <p className="min-w-fit">{value}</p>
             </td>
           ))}
         </tr>
