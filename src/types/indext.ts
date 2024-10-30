@@ -8,4 +8,6 @@ export interface ITableProps {
   data: { [key: string]: string }[];
   isLoadingData: boolean;
   totalPages: number;
+  onPageChange: (page: number) => void;
+  currentPage: number;
 }

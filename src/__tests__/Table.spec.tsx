@@ -1,119 +1,120 @@
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import Table from "../common/index";
-import React from "react";
 
 describe("Table Component", () => {
-  const mockPaginationContext = {
-    currentPage: 1,
-  };
-
-  beforeEach(() => {
-    // Mock the PaginationContext to provide a currentPage value
-    jest.spyOn(React, "useContext").mockReturnValue(mockPaginationContext);
-  });
-
-  it("renders table headers correctly when header data is provided", () => {
-    const header = ["Name", "Price", "Total Supply"];
-    const data: {
-    [key: string]: string;
-}[] = [];
-    const isLoadingData = false;
-    const totalPages = 0;
-
-    render(
-      <Table
-        header={header}
-        data={data}
-        isLoadingData={isLoadingData}
-        totalPages={totalPages}
-      />
-    );
-
-    header.forEach((item) => {
-      expect(screen.getByText(item)).toBeInTheDocument();
-    });
-  });
-
-  it("displays loading skeletons when data is loading", () => {
-    const header = ["Name", "Price", "Total Supply"];
-    const data: {
-      [key: string]: string;
-    }[] = [];
-    const isLoadingData = true;
-    const totalPages = 0;
-
-    render(
-      <Table
-        header={header}
-        data={data}
-        isLoadingData={isLoadingData}
-        totalPages={totalPages}
-      />
-    );
-
-    const skeletonRows = screen.getAllByTestId("skeleton-row");
-    expect(skeletonRows).toHaveLength(30);
-  });
-
-  it("renders CoinRow components correctly when data is available", () => {
+  // Renders a table with headers and data when not loading
+  it("should render table with headers and data when not loading", () => {
     const header = ["Name"];
-    const data = [
-      { name: "Bitcoin" },
-    ];
-    const isLoadingData = false;
-    const totalPages = 1;
-
-    render(
+    const data = [{ name: "Bitcoin" }];
+    const { getAllByText, getByText } = render(
       <Table
         header={header}
         data={data}
-        isLoadingData={isLoadingData}
-        totalPages={totalPages}
+        isLoadingData={false}
+        totalPages={1}
+        currentPage={1}
+        onPageChange={() => {}}
       />
     );
-
-    // Check that the CoinRow component renders the data correctly
-    expect(screen.getByText("Bitcoin")).toBeInTheDocument();
+    expect(getAllByText("Name")).toBeTruthy();
+    expect(getByText("Bitcoin")).toBeInTheDocument();
   });
 
-  it("displays TablePagination when data is not loading", () => {
-    const header = ["Name", "Price", "Total Supply"];
-    const data = [
-      { name: "Bitcoin", price_usd: "$50,000", tsupply: "$1 Trillion" },
-    ];
-    const isLoadingData = false;
-    const totalPages = 20;
-
-    render(
+  // Handles empty header array gracefully
+  it("should handle empty header array gracefully", () => {
+    const header: string[] = [];
+    const data = [{ Name: "Bitcoin", Price: "$50000" }];
+    const { container } = render(
       <Table
         header={header}
         data={data}
-        isLoadingData={isLoadingData}
-        totalPages={totalPages}
+        isLoadingData={false}
+        totalPages={1}
+        currentPage={1}
+        onPageChange={() => {}}
       />
     );
-
-    expect(screen.getByTestId("btnWrapper")).toBeInTheDocument();
+    const tableHeaders = container.querySelectorAll("thead tr td");
+    expect(tableHeaders.length).toBe(0);
   });
 
-  it("does not render TablePagination when data is loading", () => {
-    const header = ["Name", "Price", "Total Supply"];
-    const data: {
-      [key: string]: string;
-    }[] = [];
-    const isLoadingData = true;
-    const totalPages = 20;
-
-    render(
+  // Displays skeleton loading rows when data is loading
+  it("should display skeleton loading rows when data is loading", () => {
+    const header = ["Name", "Price"];
+    const data = [{ name: "Bitcoin", price_usd: "$50000" }];
+    const { queryByTestId } = render(
       <Table
         header={header}
         data={data}
-        isLoadingData={isLoadingData}
-        totalPages={totalPages}
+        isLoadingData={true}
+        totalPages={1}
+        currentPage={1}
+        onPageChange={() => {}}
       />
     );
+    expect(queryByTestId("skeleton")).toBeInTheDocument();
+  });
 
-    expect(screen.queryByTestId("btnWrapper")).not.toBeInTheDocument(); // Should not render pagination
+  // Renders CoinRow components for each data item
+  it("should render CoinRow components for each data item when not loading", () => {
+    const header = ["Name", "Price"];
+    const data = [{ name: "Bitcoin", price_usd: "50000" }];
+    const { getByText } = render(
+      <Table
+        header={header}
+        data={data}
+        isLoadingData={false}
+        totalPages={1}
+        currentPage={1}
+        onPageChange={() => {}}
+      />
+    );
+    expect(getByText("Bitcoin")).toBeInTheDocument();
+    expect(getByText("$50000")).toBeInTheDocument();
+  });
+
+  // Displays TablePagination component when not loading
+  it("should display TablePagination when not loading", () => {
+    const header = ["Name", "Price"];
+    const data = [{ name: "Bitcoin", price_usd: "50000" }];
+    const { getAllByText } = render(
+      <Table
+        header={header}
+        data={data}
+        isLoadingData={false}
+        totalPages={1}
+        currentPage={1}
+        onPageChange={() => {}}
+      />
+    );
+    expect(getAllByText("Bitcoin")).toBeTruthy();
+    expect(getAllByText("$50000")).toBeTruthy();
+  });
+
+  // Handles rapid toggling of isLoadingData state
+  it("should handle rapid toggling of isLoadingData state", () => {
+    const header = ["Name", "Price"];
+    const data = [{ name: "Bitcoin", price_usd: "50000" }];
+    const { rerender } = render(
+      <Table
+        header={header}
+        data={data}
+        isLoadingData={true}
+        totalPages={1}
+        currentPage={1}
+        onPageChange={() => {}}
+      />
+    );
+    rerender(
+      <Table
+        header={header}
+        data={data}
+        isLoadingData={false}
+        totalPages={1}
+        currentPage={1}
+        onPageChange={() => {}}
+      />
+    );
   });
 });

@@ -1,9 +1,7 @@
-import { useContext } from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import TablePagination from "./TablePagination";
 import CoinRow from "./CoinRow";
-import { PaginationContext } from "../contexts/paginationContext";
 import { ITableProps } from "../types/indext";
 
 const Table: React.FC<ITableProps> = ({
@@ -11,12 +9,10 @@ const Table: React.FC<ITableProps> = ({
   data,
   isLoadingData,
   totalPages,
+  currentPage,
+  onPageChange
 }) => {
-
-  // Pagination context hook
-  const context = useContext(PaginationContext);
   const loadingStateSkeletonRow = new Array(10).fill(null);
-
 
   return (
     <div className="tableContainer">
@@ -30,7 +26,7 @@ const Table: React.FC<ITableProps> = ({
             </tr>
           </thead>
           {isLoadingData ? (
-            <tbody className="min-w-fit">
+            <tbody data-testid="skeleton" className="min-w-fit">
               {loadingStateSkeletonRow.map((_item, index) => (
                 <tr key={index} className="min-w-[250px]">
                   {header.map((_item, index) => (
@@ -58,8 +54,9 @@ const Table: React.FC<ITableProps> = ({
 
       {!isLoadingData && (
         <TablePagination
-          totalPages={Math.ceil(totalPages / 10)}
-          currPage={context?.currentPage ?? 1}
+          totalPages={totalPages}
+          currPage={currentPage ?? 1}
+          paginate={onPageChange}
         />
       )}
     </div>

@@ -2,7 +2,6 @@ import { render } from "@testing-library/react";
 import CoinRow from "../common/CoinRow";
 
 describe("Rendering CoinRow", () => {
- 
   // Handles empty data object gracefully without rendering
   it("should also render a table row when data object is empty", () => {
     const header = ["Name", "Symbol", "Price", "Total Supply"];

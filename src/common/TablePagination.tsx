@@ -1,35 +1,36 @@
-import { useContext } from "react";
-import { PaginationContext } from "../contexts/paginationContext";
+import React from "react";
 
 const TablePagination: React.FC<{
   totalPages: number;
   currPage: number;
-}> = ({ totalPages, currPage }) => {
-  const context = useContext(PaginationContext);
-
+  paginate: (pageNumber: number) => void;
+}> = ({ totalPages, currPage, paginate }) => {
   return (
     <div
       data-testid="btnWrapper"
-      className="bg-white w-full flex justify-between px-2 py-1"
+      className="bg-white w-full flex justify-between items-center px-2 py-1"
     >
       <span className="btnWrapper">
         {currPage <= 1 ? (
           " "
         ) : (
           <button
-            onClick={() => context?.paginate(currPage - 1)}
+            onClick={() => paginate(currPage - 1)}
             className="paginationBtn"
           >
             ← Previous
           </button>
         )}
       </span>
+      <span className="text-sm font-bold text-gray-700">
+        Page {currPage} of {totalPages}
+      </span>
       <span className="btnWrapper">
         {currPage >= totalPages ? (
           ""
         ) : (
           <button
-            onClick={() => context?.paginate(currPage + 1)}
+            onClick={() => paginate(currPage + 1)}
             className="paginationBtn"
           >
             Next →
