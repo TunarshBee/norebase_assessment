@@ -44,7 +44,7 @@ const CoinRow: React.FC<{
           {rowData.map(({ title, value }) => (
             <td key={title}>
               <h4 className="mobileHeader">{title}</h4>
-              <p className="flex flex-wrap w-[100px] break-words">{value}</p>
+              <p>{value}</p>
             </td>
           ))}
         </tr>

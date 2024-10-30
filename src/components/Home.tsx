@@ -17,7 +17,6 @@ const Home = () => {
     }
   }, [currPage]);
 
-
   // Handle pagination and save to localStorage
   const handlePageChange = (newPage: number) => {
     setCurrPage(newPage);
@@ -27,14 +26,16 @@ const Home = () => {
   if (error) return <div>An Error occurred, please try again</div>;
 
   return (
-    <Table
-      header={["💰Coin", "📄Code", "🤑Price", "📉Total Supply"]}
-      data={data && data.data}
-      isLoadingData={isLoading}
-      totalPages={data && Math.round(data.info.coins_num / 10)}
-      onPageChange={handlePageChange}
-      currentPage={currPage}
-    />
+    <div className="px-2 md:px-0">
+      <Table
+        header={["💰Coin", "📄Code", "🤑Price", "📉Total Supply"]}
+        data={data && data.data}
+        isLoadingData={isLoading}
+        totalPages={data && Math.round(data.info.coins_num / 10)}
+        onPageChange={handlePageChange}
+        currentPage={currPage}
+      />
+    </div>
   );
 };
 

@@ -16,17 +16,17 @@ const Table: React.FC<ITableProps> = ({
 
   return (
     <div className="tableContainer">
-      <div className="w-full">
+      <div className="w-full h-5/6">
         <table className="w-full">
-          <thead className="bg-white hidden lg:block">
-            <tr className="text-sm font-bold">
+          <thead className="bg-white w-full hidden lg:block">
+            <tr className="text-sm font-bold w-full">
               {header.map((item, index) => (
                 <td key={item + index}>{item}</td>
               ))}
             </tr>
           </thead>
           {isLoadingData ? (
-            <tbody data-testid="skeleton" className="min-w-fit">
+            <tbody data-testid="skeleton" className="min-w-fit h-5/6">
               {loadingStateSkeletonRow.map((_item, index) => (
                 <tr key={index} className="min-w-[250px]">
                   {header.map((_item, index) => (

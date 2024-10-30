@@ -17,7 +17,7 @@
   }
 
   .tableContainer {
-    @apply flex flex-col items-center justify-center w-fit m-auto shadow-lg;
+    @apply flex flex-col items-center justify-center w-full md:w-5/6 m-auto shadow-lg;
   }
 
   tr {
@@ -33,7 +33,7 @@
   }
 
   .btnWrapper {
-    @apply border-2 border-transparent hover:border-[#ff0] px-1;
+    @apply border-2 border-transparent px-1;
   }
 
   .paginationBtn {
