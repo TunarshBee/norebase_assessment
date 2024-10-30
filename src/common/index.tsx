@@ -28,7 +28,7 @@ const Table: React.FC<ITableProps> = ({
           {isLoadingData ? (
             <tbody data-testid="skeleton" className="min-w-fit">
               {loadingStateSkeletonRow.map((_item, index) => (
-                <tr key={index} className="min-w-[350px]">
+                <tr key={index} className="min-w-[270px]">
                   {header.map((_item, index) => (
                     <td key={index}>
                       <Skeleton height="20px" width="70%" />
