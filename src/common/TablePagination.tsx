@@ -29,6 +29,7 @@ const TablePagination: React.FC<IPagination> = ({ totalPages, currentPage, pagin
           <button
             onClick={() => handlePaginationChange("decrement")}
             className="flex items-center gap-1 font-bold transition-all duration-200 text-sm p-[6px] rounded-sm hover:gap-2 hover:bg-[#f2f2f2]"
+            data-testid="prev"
           >
             <GoArrowLeft className="font-bold" aria-hidden="true" />
             Previous
@@ -42,6 +43,7 @@ const TablePagination: React.FC<IPagination> = ({ totalPages, currentPage, pagin
           <button
             onClick={() => handlePaginationChange("increment")}
             className="flex items-center gap-1 font-bold transition-all duration-200 text-sm p-[6px] rounded-sm hover:gap-2 hover:bg-[#f2f2f2]"
+            data-testid="next"
           >
             Next
             <GoArrowRight className="font-bold" aria-hidden="true" />
