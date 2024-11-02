@@ -1,4 +1,5 @@
 export interface IPagination {
+  totalPages: number;
   currentPage: number;
   paginate: (page: number) => void;
 }

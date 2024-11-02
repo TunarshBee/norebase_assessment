@@ -55,7 +55,7 @@ const Table: React.FC<ITableProps> = ({
       {!isLoadingData && (
         <TablePagination
           totalPages={totalPages}
-          currPage={currentPage ?? 1}
+          currentPage={currentPage ?? 1}
           paginate={onPageChange}
         />
       )}
